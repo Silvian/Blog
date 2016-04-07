@@ -1,0 +1,35 @@
+{% extends "blog/layout.html" %}
+
+{% block heading %}
+
+<h3>Welcome</h3>
+
+{% endblock %}
+
+{% block content %}
+
+{% if blog_list %}
+
+    {% for blog in blog_list %}
+        <div class="container">
+            <h3>{{blog.title}}</h3>
+
+            <div class="container">
+              <h5 style="float:left"><b>Author: {{blog.author}}</b></h5>
+              <h5 style="float:right">Published: {{blog.published_date}}</h5>
+            </div>
+            <br/>
+            <div class="container">
+              <p>{{blog.content}}</p>
+            </div>
+
+            <hr>
+        </div>
+
+    {% endfor %}
+
+{% else %}
+    <p>No blogs are available.</p>
+{% endif %}
+
+{% endblock %}

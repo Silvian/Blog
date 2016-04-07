@@ -1,0 +1,22 @@
+{% extends "blog/layout.html" %}
+
+{% block heading %}
+<h3>{{blog.title}}</h3>
+
+<div>
+  <h5 style="float:left"><b>Author: {{blog.author}}</b></h5>
+  <h5 style="float:right">Published: {{blog.published_date}}</h5>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div>
+  <p>{{blog.content}}</p>
+</div>
+
+<br/>
+<hr>
+<a href="/list/"> <button type="button" class="btn btn-info"> << Back</button></a>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "blog/layout.html" %}
+
+{% block heading %}
+
+<h3>Blogs</h3>
+
+{% endblock %}
+
+{% block content %}
+
+{% if blog_list %}
+    <ul class="list-group">
+    {% for blog in blog_list %}
+		<li class="list-group-item"><a href="/blog/content/{{ blog.id }}">{{ blog.title }}</a> - <b>{{blog.published_date}}</b></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No blogs are available.</p>
+{% endif %}
+
+{% endblock %}
