@@ -1,6 +1,8 @@
 from django.views import generic
-from models import Blog
+from models import Blog, Comment
 from django.utils import timezone
+from .forms import CommentForm
+from django.http import HttpResponseRedirect
 
 
 class IndexView(generic.ListView):
@@ -20,7 +22,7 @@ class ListView(generic.ListView):
     def get_queryset(self):
         return Blog.objects.filter(
             published_date__lte=timezone.now()
-        ).order_by('-published_date')[:5]
+        ).order_by('-published_date')
 
 
 class ContentView(generic.DetailView):
@@ -32,4 +34,32 @@ class ContentView(generic.DetailView):
         """
         Excludes any blogs that aren't published yet.
         """
+
         return Blog.objects.filter(published_date__lte=timezone.now())
+
+
+class CommentFormView(generic.FormView, generic.DetailView, generic.base.ContextMixin):
+    model = Blog
+    template_name = 'blog/comment_post.html'
+    form_class = CommentForm
+    success_url = 'blog/'
+    context_object_name = 'blog'
+
+    def form_valid(self, form):
+        form.save()
+        return HttpResponseRedirect('blog/content')
+
+    def get_queryset(self):
+        """
+        Excludes any blogs that aren't published yet.
+        """
+        return Blog.objects.filter(published_date__lte=timezone.now())
+
+    def get_context_data(self, **kwargs):
+        """
+        Call the base implementation first to get a context
+        """
+        context = super(CommentFormView, self).get_context_data(**kwargs)
+        context['comment_list'] = Comment.objects.filter(blog_id=self.kwargs['pk']).order_by('-published_date')
+        return context
+

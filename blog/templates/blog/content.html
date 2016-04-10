@@ -19,4 +19,15 @@
 <hr>
 <a href="/list/"> <button type="button" class="btn btn-info"> << Back</button></a>
 
+<a href="/blog/content/{{blog.id}}/comment/">
+    <button id="comment-form-{{blog.id}}" type="button" class="btn btn-default">Comments</button>
+</a>
+
+<br/>
+<hr>
+
+<div class="container">
+    {% block comment_post %} {% endblock %}
+</div>
+
 {% endblock %}

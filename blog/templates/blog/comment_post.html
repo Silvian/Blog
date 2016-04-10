@@ -1,0 +1,28 @@
+{% extends "blog/content.html" %}
+
+{% block comment_post %}
+
+<h5><b>Comments </b></h5>
+<br/>
+{% if comment_list %}
+<ul class="list-group">
+    {% for comment in comment_list %}
+    <li class="list-group-item"><b> {{ comment.author }}</b>
+        <br/>
+        <p>{{ comment.text }}</p>
+    </li>
+    <br/>
+    {% endfor %}
+</ul>
+{% endif %}
+<br/>
+<h5><b>Add a comment</b></h5>
+<br/>
+<form method="POST" class="post-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="blog" value="{{ blog.id }}">
+    <button type="submit" class="save btn btn-success">Submit</button>
+</form>
+
+{% endblock %}
