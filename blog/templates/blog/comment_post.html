@@ -7,7 +7,9 @@
 {% if comment_list %}
 <ul class="list-group">
     {% for comment in comment_list %}
-    <li class="list-group-item"><b> {{ comment.author }}</b>
+    <li class="list-group-item">
+        <b style="float:left"> {{ comment.author }}</b>
+        <i style="float:right"> {{ comment.published_date }}</i>
         <br/>
         <p>{{ comment.text }}</p>
     </li>

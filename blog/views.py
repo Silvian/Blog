@@ -60,6 +60,6 @@ class CommentFormView(generic.FormView, generic.DetailView, generic.base.Context
         Call the base implementation first to get a context
         """
         context = super(CommentFormView, self).get_context_data(**kwargs)
-        context['comment_list'] = Comment.objects.filter(blog_id=self.kwargs['pk']).order_by('-published_date')
+        context['comment_list'] = Comment.objects.filter(blog_id=self.kwargs['pk']).order_by('published_date')
         return context
 
